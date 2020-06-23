@@ -15,10 +15,17 @@ def start_launch(launch):
     if os.path.exists('rp_launch_id.dat'):
         with open("rp_launch_id.dat", "r+") as f:
             Variables.launch_id = f.readline()
+            # RobotService.rp.rerun_of = Variables.launch_id
 
     RobotService.rp.rerun = Variables.rerun
-    print("RERUN: {}".format(Variables.rerun))
     if not Variables.launch_id:
+        launch.doc = Variables.launch_doc
+        logging.debug("ReportPortal - Start Launch: {0}".format(
+            launch.attributes))
+        RobotService.start_launch(launch_name=Variables.launch_name,
+                                  launch=launch)
+    elif Variables.rerun and not RobotService.rp.rerun_of:
+        RobotService.rp.rerun_of = Variables.launch_id
         launch.doc = Variables.launch_doc
         logging.debug("ReportPortal - Start Launch: {0}".format(
             launch.attributes))
@@ -26,8 +33,6 @@ def start_launch(launch):
                                   launch=launch)
     else:
         RobotService.rp.launch_id = Variables.launch_id
-        if Variables.rerun:
-            RobotService.rp.rerun_of = Variables.launch_id
 
 
     if not os.path.exists('rp_launch_id.dat'):
