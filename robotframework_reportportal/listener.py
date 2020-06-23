@@ -46,7 +46,7 @@ def start_suite(name, attributes):
         Variables.check_variables()
         RobotService.init_service(Variables.endpoint, Variables.project,
                                   Variables.uuid)
-        start_launch(suite)
+        #start_launch(suite)
         if not suite.suites:
             attributes['id'] = "s1-s1"
             start_suite(name, attributes)
@@ -61,13 +61,13 @@ def start_suite(name, attributes):
 
 def end_suite(_, attributes):
     suite = Suite(attributes=attributes)
-    if suite.robot_id == "s1":
-        logging.debug(msg="ReportPortal - End Launch: {0}".format(attributes))
-        RobotService.finish_launch(launch=suite)
-        RobotService.terminate_service()
-    else:
-        logging.debug("ReportPortal - End Suite: {0}".format(attributes))
-        RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
+    #if suite.robot_id == "s1":
+    #    logging.debug(msg="ReportPortal - End Launch: {0}".format(attributes))
+    #    RobotService.finish_launch(launch=suite)
+    #    RobotService.terminate_service()
+    #else:
+    logging.debug("ReportPortal - End Suite: {0}".format(attributes))
+    RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
 
 
 def start_test(name, attributes):
