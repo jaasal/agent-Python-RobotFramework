@@ -12,32 +12,30 @@ items = []
 
 def start_launch(launch):
     """Start a new launch at the Report Portal."""
-    if os.path.exists('rp_launch_id.dat'):
-        with open("rp_launch_id.dat", "r+") as f:
-            Variables.launch_id = f.readline()
-            # RobotService.rp.rerun_of = Variables.launch_id
+    with open("rp_launch_id.dat", "r+") as f:
+        Variables.launch_id = f.readline()
+        RobotService.rp.launch_id = Variables.launch_id
 
     RobotService.rp.rerun = Variables.rerun
-    if not Variables.launch_id:
-        launch.doc = Variables.launch_doc
-        logging.debug("ReportPortal - Start Launch: {0}".format(
-            launch.attributes))
-        RobotService.start_launch(launch_name=Variables.launch_name,
-                                  launch=launch)
-    elif Variables.rerun and not RobotService.rp.rerun_of:
+    #if not Variables.launch_id:
+    #    launch.doc = Variables.launch_doc
+    #    logging.debug("ReportPortal - Start Launch: {0}".format(
+    #        launch.attributes))
+    #    RobotService.start_launch(launch_name=Variables.launch_name,
+    #                              launch=launch)
+    if Variables.rerun and not RobotService.rp.rerun_of:
         RobotService.rp.rerun_of = Variables.launch_id
         launch.doc = Variables.launch_doc
         logging.debug("ReportPortal - Start Launch: {0}".format(
             launch.attributes))
         RobotService.start_launch(launch_name=Variables.launch_name,
                                   launch=launch)
-    else:
-        RobotService.rp.launch_id = Variables.launch_id
+    #else:
+    #    RobotService.rp.launch_id = Variables.launch_id
 
-
-    if not os.path.exists('rp_launch_id.dat'):
-        with open("rp_launch_id.dat", "w+") as f:
-            f.write(RobotService.rp.launch_id)
+    #if not os.path.exists('rp_launch_id.dat'):
+    #    with open("rp_launch_id.dat", "w+") as f:
+    #        f.write(RobotService.rp.launch_id)
 
 
 def start_suite(name, attributes):
@@ -46,13 +44,14 @@ def start_suite(name, attributes):
         Variables.check_variables()
         RobotService.init_service(Variables.endpoint, Variables.project,
                                   Variables.uuid)
-        #start_launch(suite)
+        start_launch(suite)
         if not suite.suites:
             attributes['id'] = "s1-s1"
             start_suite(name, attributes)
 
     else:
         logging.debug("ReportPortal - Start Suite: {0}".format(attributes))
+        print("ReportPortal - Start Suite: {0}".format(attributes))
         parent_id = items[-1][0] if items else None
         item_id = RobotService.start_suite(name=name, suite=suite,
                                            parent_item_id=parent_id)
