@@ -30,6 +30,8 @@ def start_launch(launch):
             launch.attributes))
         RobotService.start_launch(launch_name=Variables.launch_name,
                                   launch=launch)
+        with open("rp_launch_id.dat", "w+") as f:
+            f.write(RobotService.rp.launch_id)
     #else:
     #    RobotService.rp.launch_id = Variables.launch_id
 
