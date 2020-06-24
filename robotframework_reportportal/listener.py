@@ -32,6 +32,7 @@ def start_launch(launch):
                                   launch=launch)
         with open("rp_launch_id.dat", "w+") as f:
             f.write(RobotService.rp.launch_id)
+            print("LAUNCH ID IS NOW: " + RobotService.rp.launch_id)
     #else:
     #    RobotService.rp.launch_id = Variables.launch_id
 
