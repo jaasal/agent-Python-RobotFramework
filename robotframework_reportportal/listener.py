@@ -46,7 +46,7 @@ def start_suite(name, attributes):
                                   Variables.uuid)
         start_launch(suite)
         if not suite.suites:
-            attributes['id'] = "s1-s1"
+            attributes['id'] = "s1-s1-s1"
             start_suite(name, attributes)
 
     else:
