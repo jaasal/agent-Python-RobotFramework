@@ -46,9 +46,10 @@ def start_suite(name, attributes):
                                   Variables.uuid)
         start_launch(suite)
         if not suite.suites:
-            attributes['id'] = "s1-s1-s1"
+            attributes['id'] = "s1-s1"
             start_suite(name, attributes)
-
+    elif suite.robot_id == "s1-s1":
+        pass
     else:
         logging.debug("ReportPortal - Start Suite: {0}".format(attributes))
         print("ReportPortal - Start Suite: {0}".format(attributes))
