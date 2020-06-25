@@ -72,6 +72,8 @@ def end_suite(_, attributes):
     #    RobotService.terminate_service()
     #else:
     logging.debug("ReportPortal - End Suite: {0}".format(attributes))
+    with open("rp_launch_id.dat", "w+") as f:
+        f.write(RobotService.rp.launch_id)
     RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
 
 
