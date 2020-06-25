@@ -24,15 +24,16 @@ def start_launch(launch):
     #    RobotService.start_launch(launch_name=Variables.launch_name,
     #                              launch=launch)
     if Variables.rerun and not RobotService.rp.rerun_of:
-        RobotService.rp.rerun_of = Variables.launch_id
-        launch.doc = Variables.launch_doc
-        logging.debug("ReportPortal - Start Launch: {0}".format(
-            launch.attributes))
-        RobotService.start_launch(launch_name=Variables.launch_name,
-                                  launch=launch)
-        with open("rp_launch_id.dat", "w+") as f:
-            f.write(RobotService.rp.launch_id)
-            print("LAUNCH ID IS NOW: " + RobotService.rp.launch_id)
+        #RobotService.rp.rerun_of = Variables.launch_id
+        #launch.doc = Variables.launch_doc
+        #logging.debug("ReportPortal - Start Launch: {0}".format(
+        #    launch.attributes))
+        #RobotService.start_launch(launch_name=Variables.launch_name,
+        #                          launch=launch)
+        #with open("rp_launch_id.dat", "w+") as f:
+        #    f.write(RobotService.rp.launch_id)
+        #    print("LAUNCH ID IS NOW: " + RobotService.rp.launch_id)
+        pass
     #else:
     #    RobotService.rp.launch_id = Variables.launch_id
 
