@@ -12,6 +12,7 @@ items = []
 def start_launch(launch):
     """Start a new launch at the Report Portal."""
     if Variables.launch_rerun:
+        Variables.launch_id = Variables.launch_rerun_id
         RobotService.rp.rerun_of = Variables.launch_rerun_id
         RobotService.rp.rerun = Variables.launch_rerun
     if not Variables.launch_id:
