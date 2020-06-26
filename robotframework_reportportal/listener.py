@@ -1,5 +1,4 @@
 import logging
-import os.path
 
 from .variables import Variables
 from .model import Keyword, Test, Suite, LogMessage
@@ -12,35 +11,14 @@ items = []
 
 def start_launch(launch):
     """Start a new launch at the Report Portal."""
-    with open("rp_launch_id.dat", "r+") as f:
-        if not Variables.rerun:
-            Variables.launch_id = f.readline()
-            RobotService.rp.launch_id = Variables.launch_id
-
-    RobotService.rp.rerun = Variables.rerun
-    # if not Variables.launch_id:
-    #    launch.doc = Variables.launch_doc
-    #    logging.debug("ReportPortal - Start Launch: {0}".format(
-    #        launch.attributes))
-    #    RobotService.start_launch(launch_name=Variables.launch_name,
-    #                              launch=launch)
-    if Variables.rerun and not RobotService.rp.rerun_of:
-        #RobotService.rp.rerun_of = Variables.launch_id
-        #launch.doc = Variables.launch_doc
-        #logging.debug("ReportPortal - Start Launch: {0}".format(
-        #    launch.attributes))
-        #RobotService.start_launch(launch_name=Variables.launch_name,
-        #                          launch=launch)
-        #with open("rp_launch_id.dat", "w+") as f:
-        #    f.write(RobotService.rp.launch_id)
-        #    print("LAUNCH ID IS NOW: " + RobotService.rp.launch_id)
-        pass
-    #else:
-    #    RobotService.rp.launch_id = Variables.launch_id
-
-    #if not os.path.exists('rp_launch_id.dat'):
-    #    with open("rp_launch_id.dat", "w+") as f:
-    #        f.write(RobotService.rp.launch_id)
+    if not Variables.launch_id:
+        launch.doc = Variables.launch_doc
+        logging.debug("ReportPortal - Start Launch: {0}".format(
+            launch.attributes))
+        RobotService.start_launch(launch_name=Variables.launch_name,
+                                  launch=launch)
+    else:
+        RobotService.rp.launch_id = Variables.launch_id
 
 
 def start_suite(name, attributes):
@@ -53,11 +31,9 @@ def start_suite(name, attributes):
         if not suite.suites:
             attributes['id'] = "s1-s1"
             start_suite(name, attributes)
-    elif suite.robot_id == "s1-s1":
-        pass
+
     else:
         logging.debug("ReportPortal - Start Suite: {0}".format(attributes))
-        print("ReportPortal - Start Suite: {0}".format(attributes))
         parent_id = items[-1][0] if items else None
         item_id = RobotService.start_suite(name=name, suite=suite,
                                            parent_item_id=parent_id)
@@ -66,15 +42,13 @@ def start_suite(name, attributes):
 
 def end_suite(_, attributes):
     suite = Suite(attributes=attributes)
-    #if suite.robot_id == "s1":
-    #    logging.debug(msg="ReportPortal - End Launch: {0}".format(attributes))
-    #    RobotService.finish_launch(launch=suite)
-    #    RobotService.terminate_service()
-    #else:
-    logging.debug("ReportPortal - End Suite: {0}".format(attributes))
-    with open("rp_launch_id.dat", "w+") as f:
-        f.write(Variables.launch_id)
-    RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
+    if suite.robot_id == "s1":
+        logging.debug(msg="ReportPortal - End Launch: {0}".format(attributes))
+        RobotService.finish_launch(launch=suite)
+        RobotService.terminate_service()
+    else:
+        logging.debug("ReportPortal - End Suite: {0}".format(attributes))
+        RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
 
 
 def start_test(name, attributes):
