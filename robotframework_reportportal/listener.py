@@ -11,7 +11,7 @@ items = []
 
 def start_launch(launch):
     """Start a new launch at the Report Portal."""
-    if not Variables.launch_id:
+    if Variables.launch_rerun or not Variables.launch_id:
         launch.doc = Variables.launch_doc
         logging.debug("ReportPortal - Start Launch: {0}".format(
             launch.attributes))
