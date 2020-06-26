@@ -31,7 +31,8 @@ def start_suite(name, attributes):
         if not suite.suites:
             attributes['id'] = "s1-s1"
             start_suite(name, attributes)
-
+    elif suite.robot_id == "s1-s1":
+        pass
     else:
         logging.debug("ReportPortal - Start Suite: {0}".format(attributes))
         parent_id = items[-1][0] if items else None
