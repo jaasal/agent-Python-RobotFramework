@@ -14,7 +14,7 @@ def start_launch(launch):
     if Variables.launch_rerun:
         #RobotService.rp.rerun_of = Variables.launch_rerun_id
         RobotService.rp.rerun = Variables.launch_rerun
-    elif not Variables.launch_id:
+    if not Variables.launch_id:
         launch.doc = Variables.launch_doc
         logging.debug("ReportPortal - Start Launch: {0}".format(
             launch.attributes))
