@@ -48,8 +48,8 @@ def end_suite(_, attributes):
     suite = Suite(attributes=attributes)
     if suite.robot_id == "s1":
         logging.debug(msg="ReportPortal - End Launch: {0}".format(attributes))
-        RobotService.finish_launch(launch=suite)
-        RobotService.terminate_service()
+        #RobotService.finish_launch(launch=suite)
+        #RobotService.terminate_service()
     else:
         logging.debug("ReportPortal - End Suite: {0}".format(attributes))
         RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
