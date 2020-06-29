@@ -52,7 +52,10 @@ def end_suite(_, attributes):
         #RobotService.terminate_service()
     else:
         logging.debug("ReportPortal - End Suite: {0}".format(attributes))
-        RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
+        try:
+            RobotService.finish_suite(item_id=items.pop()[0], suite=suite)
+        except:
+            return
 
 
 def start_test(name, attributes):
