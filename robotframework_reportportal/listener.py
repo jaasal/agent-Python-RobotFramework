@@ -73,7 +73,10 @@ def end_test(name, attributes):
 
 def start_keyword(name, attributes):
     parent_type = 'SUITE' if not items else 'TEST'
-    parent_item_id = items[-1][0]
+    try:
+        parent_item_id = items[-1][0]
+    except:
+        return
     kwd = Keyword(name=name, parent_type=parent_type, attributes=attributes)
     logging.debug("ReportPortal - Start Keyword: {0}".format(attributes))
     items.append((
@@ -84,7 +87,10 @@ def start_keyword(name, attributes):
 
 def end_keyword(name, attributes):
     kwd = Keyword(name=name, attributes=attributes)
-    item_id, _ = items.pop()
+    try:
+        item_id, _ = items.pop()
+    except:
+        return
     logging.debug("ReportPortal - End Keyword: {0}".format(attributes))
     RobotService.finish_keyword(item_id=item_id, keyword=kwd)
 
@@ -97,7 +103,10 @@ def log_message(message):
         msg = LogMessage(message["message"])
         msg.level = message["level"]
 
-    msg.item_id = items[-1][0]
+    try:
+        msg.item_id = items[-1][0]
+    except:
+        return
     logging.debug("ReportPortal - Log Message: {0}".format(message))
     RobotService.log(message=msg)
 
